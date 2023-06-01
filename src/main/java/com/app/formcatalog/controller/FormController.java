@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
+@RequestMapping("/")
 public class FormController {
 
     private final FormService formService;
@@ -21,7 +22,7 @@ public class FormController {
         this.formService = formService;
     }
 
-    @GetMapping("form/new")
+    @GetMapping("/new")
     public String showFormPage() {
         return "formPage";
     }

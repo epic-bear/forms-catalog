@@ -41,5 +41,5 @@ public class Form {
     @NotBlank
     private Gender gender;
     @NotBlank
-    private List<String> hobbies;
+    private List<String> occupations;
 }
