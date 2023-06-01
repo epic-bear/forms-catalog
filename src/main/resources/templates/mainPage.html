@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/styles/main-page-style.css}" rel="stylesheet"/>
+</head>
+<body>
+<h1>Main Page</h1>
+<a th:href="@{/form/new}">Create New Form</a>
+
+<h2>Form List</h2>
+<ul>
+    <li th:each="form : ${forms}">
+        <span th:text="${form.firstName}"></span>
+        <span th:text="${form.lastName}"></span>
+        <span th:text="${form.surname}"></span>
+        <a th:href="@{/forms/{id}/update(id=${form.id})}">Update</a>
+        <a th:href="@{/forms/{id}/delete(id=${form.id})}">Delete</a>
+    </li>
+</ul>
+</body>
+</html>

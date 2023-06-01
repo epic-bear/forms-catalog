@@ -1,9 +1,9 @@
 package com.app.formcatalog.domain;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+
 import jakarta.validation.constraints.*;
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -12,10 +12,10 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@Data
 @Document(collection = "forms")
 public class Form {
     @Id
-    @GeneratedValue
     private String id;
 
     @NotBlank
@@ -39,7 +39,7 @@ public class Form {
     private int yearOfBirth;
 
     @NotBlank
-    private Sex sex;
+    private Gender gender;
     @NotBlank
     private List<String> hobbies;
 }
