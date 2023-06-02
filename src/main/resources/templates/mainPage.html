@@ -32,7 +32,7 @@
             <!-- Include yearOfBirth, gender, and occupations as hidden input fields -->
             <input type="hidden" name="yearOfBirth" th:value="${form.yearOfBirth}" />
             <input type="hidden" name="gender" th:value="${form.gender}" />
-            <input type="hidden" name="occupations" th:value="${form.occupations}" />
+            <input type="hidden" name="occupation" th:value="${form.occupation}" />
             <button type="submit">Update</button>
         </form>
         <form th:object="${form}" th:action="@{/form/delete}" th:method="post" style="display: inline;">

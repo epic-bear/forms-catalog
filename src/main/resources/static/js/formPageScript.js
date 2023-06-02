@@ -3,23 +3,6 @@ let occupationsByGender = {
     FEMALE: ["Nurse", "Choreographer", "Receptionist", "Travel agent", "Social worker"]
 };
 
-const select = document.getElementById("occupations");
-
-// Add event listener for change event
-select.addEventListener("change", function() {
-    // Get all the selected options
-    const selectedOptions = Array.from(this.selectedOptions);
-
-    // Iterate over each option and update the style
-    this.querySelectorAll("option").forEach(option => {
-        if (selectedOptions.includes(option)) {
-            option.style.color = "green"; // Set selected option color to green
-        } else {
-            option.style.color = "red"; // Set unselected option color to red
-        }
-    });
-});
-
 function fillOccupations() {
     let gender = document.getElementById("gender").value;
     let occupationSelect = document.getElementById("occupations");
@@ -38,4 +21,5 @@ function fillOccupations() {
 
 document.getElementById("gender").addEventListener("change", fillOccupations);
 
+// Trigger initial population of occupations based on the selected gender
 fillOccupations();

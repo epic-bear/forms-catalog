@@ -40,7 +40,7 @@
 
     <div>
         <label for="occupations">Occupations:</label>
-        <select id="occupations" name="occupations" th:value="${form != null ? form.occupations : null}" multiple="multiple" required>
+        <select id="occupations" name="occupations" multiple="multiple" required>
             <option th:each="occupation : ${occupationOptions}" th:value="${occupation}" th:text="${occupation}"></option>
         </select>
     </div>

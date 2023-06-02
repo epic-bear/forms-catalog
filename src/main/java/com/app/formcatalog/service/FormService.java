@@ -38,7 +38,7 @@ public class FormService {
             existingForm.setLastName(form.getLastName());
             existingForm.setSurname(form.getSurname());
             existingForm.setYearOfBirth(form.getYearOfBirth());
-            existingForm.setOccupations(form.getOccupations());
+            existingForm.setOccupation(form.getOccupation());
             existingForm.setGender(form.getGender());
 
             return formRepository.save(existingForm);

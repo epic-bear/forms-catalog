@@ -1,12 +1,9 @@
 package com.app.formcatalog.domain;
 
-
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -41,5 +38,5 @@ public class Form {
     @NotBlank
     private Gender gender;
     @NotBlank
-    private List<String> occupations;
+    private String occupation;
 }
