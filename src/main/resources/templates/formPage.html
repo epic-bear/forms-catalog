@@ -33,21 +33,79 @@
     <div>
         <label for="gender">Gender:</label>
         <select id="gender" name="gender" required>
-            <option value="MALE">Male</option>
-            <option value="FEMALE">Female</option>
         </select>
     </div>
 
     <div>
-        <label for="occupations">Occupations:</label>
-        <select id="occupations" name="occupations" multiple="multiple" required>
-            <option th:each="occupation : ${occupationOptions}" th:value="${occupation}" th:text="${occupation}"></option>
+        <label for="occupation">Occupations:</label>
+        <select id="occupation" name="occupation" required>
         </select>
     </div>
 
     <button type="submit">Submit</button>
 </form>
 
-<script src="/js/formPageScript.js"></script>
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        let genders = /*[[${T(com.app.formcatalog.domain.Gender).values()}]]*/ [];
+        let genderSelect = document.getElementById("gender");
+        let occupationSelect = document.getElementById("occupation");
+        let occupationsByGender = {
+            Male: ["Mechanic", "Electrician", "Plumber", "Glazier", "Taxi driver"],
+            Female: ["Nurse", "Choreographer", "Receptionist", "Travel agent", "Social worker"]
+        };
+
+        // Generate options for the gender select element
+        for (let i = 0; i < genders.length; i++) {
+            let option = document.createElement("option");
+            option.value = genders[i];
+            option.text = genders[i];
+            genderSelect.appendChild(option);
+        }
+
+        // Set the selected option for gender
+        let form = /*[[${form}]]*/ null;
+        if (form && form.gender) {
+            genderSelect.value = form.gender;
+        }
+
+        // Populate occupations based on selected gender
+        let selectedGender = genderSelect.value;
+        let occupations = occupationsByGender[selectedGender];
+        if (occupations) {
+            for (let i = 0; i < occupations.length; i++) {
+                let option = document.createElement("option");
+                option.value = occupations[i];
+                option.text = occupations[i];
+
+                if (form && form.occupation === occupations[i]) {
+                    option.selected = true;
+                }
+
+                occupationSelect.appendChild(option);
+            }
+        }
+
+        // Update occupations when gender selection changes
+        genderSelect.addEventListener("change", function() {
+            occupationSelect.innerHTML = "";
+            let selectedGender = genderSelect.value;
+            let occupations = occupationsByGender[selectedGender];
+            if (occupations) {
+                for (let i = 0; i < occupations.length; i++) {
+                    let option = document.createElement("option");
+                    option.value = occupations[i];
+                    option.text = occupations[i];
+
+                    if (form && form.occupation === occupations[i]) {
+                        option.selected = true;
+                    }
+
+                    occupationSelect.appendChild(option);
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>
