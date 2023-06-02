@@ -5,17 +5,40 @@
 </head>
 <body>
 <h1>Main Page</h1>
-<a th:href="@{/new}">Create New Form</a>
-
+<a th:href="@{/form}">Create New Form</a>
+<div th:if="${message}" class="success-message">
+    <span th:text="${message}"></span>
+</div>
 <h2>Form List</h2>
 <ul>
     <li th:each="form : ${forms}">
         <span th:text="${form.firstName}"></span>
         <span th:text="${form.lastName}"></span>
         <span th:text="${form.surname}"></span>
-        <a th:href="@{/forms/{id}/update(id=${form.id})}">Update</a>
-        <a th:href="@{/forms/{id}/delete(id=${form.id})}">Delete</a>
-    </li>
+        <form th:object="${form}" th:action="@{/form}" method="get" style="display: inline;">
+            <input type="hidden" name="id" th:value="${form.id}" />
+            <div>
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" th:value="${form.firstName}" />
+            </div>
+            <div>
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" th:value="${form.lastName}" />
+            </div>
+            <div>
+                <label for="surname">Surname:</label>
+                <input type="text" id="surname" name="surname" th:value="${form.surname}" />
+            </div>
+            <!-- Include yearOfBirth, gender, and occupations as hidden input fields -->
+            <input type="hidden" name="yearOfBirth" th:value="${form.yearOfBirth}" />
+            <input type="hidden" name="gender" th:value="${form.gender}" />
+            <input type="hidden" name="occupations" th:value="${form.occupations}" />
+            <button type="submit">Update</button>
+        </form>
+        <form th:object="${form}" th:action="@{/form/delete}" th:method="post" style="display: inline;">
+            <input type="hidden" name="id" th:value="${form.id}" />
+            <button type="submit">Delete</button>
+        </form>li>
 </ul>
 </body>
 </html>

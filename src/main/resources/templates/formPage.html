@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Type" content="application/json; charset=UTF-8"/>
     <title>Form Page</title>
 </head>
 <body>
 <h1>Form Page</h1>
 
-<form id="myForm" action="/form" method="POST">
+<form th:object="${form}" th:action="@{/form}" th:method="POST">
+    <input type="hidden" th:if="${form != null && form.id != null}" th:field="*{id}" />
+
     <div>
         <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" name="firstName">
+        <input type="text" id="firstName" name="firstName" th:value="${form != null ? form.firstName : null}" required/>
     </div>
 
     <div>
         <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" name="lastName">
+        <input type="text" id="lastName" name="lastName" th:value="${form != null ? form.lastName : null}" required/>
     </div>
 
     <div>
         <label for="surname">Surname:</label>
-        <input type="text" id="surname" name="surname">
+        <input type="text" id="surname" name="surname" th:value="${form != null ? form.surname : null}" required/>
     </div>
 
     <div>
         <label for="yearOfBirth">Year of Birth:</label>
-        <input type="number" id="yearOfBirth" name="yearOfBirth">
+        <input type="number" id="yearOfBirth" name="yearOfBirth" th:value="${form != null ? form.yearOfBirth : null}" required/>
     </div>
 
     <div>
@@ -38,14 +40,14 @@
 
     <div>
         <label for="occupations">Occupations:</label>
-        <select id="occupations" name="occupations">
-            <!-- Options will be populated dynamically using JavaScript -->
+        <select id="occupations" name="occupations" th:value="${form != null ? form.occupations : null}" multiple="multiple" required>
+            <option th:each="occupation : ${occupationOptions}" th:value="${occupation}" th:text="${occupation}"></option>
         </select>
     </div>
 
     <button type="submit">Submit</button>
 </form>
 
-<script type="text/javascript" src="/js/formPageScript.js"></script>
+<script src="/js/formPageScript.js"></script>
 </body>
 </html>

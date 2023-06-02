@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -22,16 +24,22 @@ public class FormController {
         this.formService = formService;
     }
 
-    @GetMapping("/new")
-    public String showFormPage() {
+    @GetMapping("/form")
+    public String getFormPage(@ModelAttribute("form") Form form, Model model) {
+        model.addAttribute("form", form);
         return "formPage";
     }
 
     @GetMapping("/")
-    public ModelAndView getAllForms() {
+    public ModelAndView getAllForms(RedirectAttributes redirectAttributes) {
         List<Form> forms = formService.getAllForms();
         ModelAndView modelAndView = new ModelAndView("mainPage");
         modelAndView.addObject("forms", forms);
+
+        if (redirectAttributes.getFlashAttributes().containsKey("message")) {
+            modelAndView.addObject("message", redirectAttributes.getFlashAttributes().get("message"));
+        }
+
         return modelAndView;
     }
 
@@ -45,29 +53,29 @@ public class FormController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<Form> createForm(@RequestBody Form form) {
-        Form createdForm = formService.createForm(form);
-        return new ResponseEntity<>(createdForm, HttpStatus.CREATED);
-    }
-
-    @PutMapping("form/{id}")
-    public ResponseEntity<Form> updateForm(@PathVariable String id, @RequestBody Form form) {
-        Form updatedForm = formService.updateForm(id, form);
-        if (updatedForm != null) {
-            return new ResponseEntity<>(updatedForm, HttpStatus.OK);
+    @PostMapping("/form")
+    public String saveForm(@ModelAttribute("form") Form form, RedirectAttributes redirectAttributes) {
+        if (form.getId() != null) {
+            // Form ID exists, perform update operation
+            formService.updateForm(form);
+            redirectAttributes.addFlashAttribute("message", "Form updated successfully!");
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            // Form ID doesn't exist, perform create operation
+            formService.createForm(form);
+            redirectAttributes.addFlashAttribute("message", "Form created successfully!");
         }
+
+        return "redirect:/";
     }
 
-    @DeleteMapping("form/{id}")
-    public ResponseEntity<Void> deleteForm(@PathVariable String id) {
-        boolean deleted = formService.deleteForm(id);
+    @PostMapping("/form/delete")
+    public String deleteForm(@ModelAttribute("form") Form form, RedirectAttributes redirectAttributes) {
+        boolean deleted = formService.deleteForm(form.getId());
         if (deleted) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            redirectAttributes.addFlashAttribute("message", "Form deleted successfully!");
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            redirectAttributes.addFlashAttribute("error", "Failed to delete the form.");
         }
+        return "redirect:/";
     }
 }

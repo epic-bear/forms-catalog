@@ -30,8 +30,8 @@ public class FormService {
         return formRepository.save(form);
     }
 
-    public Form updateForm(String id, Form form) {
-        Optional<Form> optionalForm = formRepository.findById(id);
+    public Form updateForm(Form form) {
+        Optional<Form> optionalForm = formRepository.findById(form.getId());
         if (optionalForm.isPresent()) {
             Form existingForm = optionalForm.get();
             existingForm.setFirstName(form.getFirstName());
