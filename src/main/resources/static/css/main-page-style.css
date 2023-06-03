@@ -11,6 +11,7 @@ body {
 
 .container {
     background-color: mintcream;
+    border: 1px solid #ccc;
     display: flex;
     justify-content: center;
     align-items: center;
