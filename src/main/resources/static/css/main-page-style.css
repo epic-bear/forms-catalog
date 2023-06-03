@@ -15,25 +15,26 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: -600px;
-    overflow: auto;
+    margin: 20px 20px 20px -550px;
     max-height: 100vh;
     min-height: 100vh;
-    min-width: 25vh;
-    max-width: 25vh;
+    min-width: 730px;
+    max-width: 730px;
+    overflow: hidden;
 }
 
 .navbar {
-    margin-bottom: 20px;
-    margin-right: 20px;
-    width: 50%;
-    align-self: flex-start;
-    max-height: 80vh;
-    max-width: 25vh;
+    margin-left: 70px;
+    margin-top: -280px;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 70vh;
+    min-height: 70vh;
+    padding-right: 8px;
+    box-sizing: border-box;
 }
 
 .form-list {
-    display: inline;
     list-style-type: none;
     padding: 0;
 }
@@ -47,7 +48,7 @@ li {
     justify-content: center;
     align-items: center;
     margin-top: 20px;
-    margin-left: 180px;
+    margin-left: -250px;
     width: 50%; /* Adjust the width as needed */
 }
 

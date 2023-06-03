@@ -17,17 +17,17 @@ public class Form {
 
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z]+$", message = "First name should contain only letters")
-    @Size(max = 20, message = "First name length should not exceed 20 characters")
+    @Size(max = 15, message = "First name length should not exceed 15 characters")
     private String firstName;
 
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z]+$", message = "Last name should contain only letters")
-    @Size(max = 20, message = "Last name length should not exceed 20 characters")
+    @Size(max = 15, message = "Last name length should not exceed 15 characters")
     private String lastName;
 
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z]+$", message = "Surname should contain only letters")
-    @Size(max = 20, message = "Surname length should not exceed 20 characters")
+    @Size(max = 15, message = "Surname length should not exceed 15 characters")
     private String surname;
 
     @Min(value = 1900, message = "Invalid year of birth")
