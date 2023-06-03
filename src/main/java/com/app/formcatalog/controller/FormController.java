@@ -2,6 +2,7 @@ package com.app.formcatalog.controller;
 
 import com.app.formcatalog.domain.Form;
 import com.app.formcatalog.service.FormService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Valid;
 import jakarta.validation.Validation;
@@ -38,7 +39,7 @@ public class FormController {
     }
 
     @GetMapping("/")
-    public ModelAndView getAllForms(RedirectAttributes redirectAttributes) {
+    public ModelAndView getAllForms(RedirectAttributes redirectAttributes, HttpServletResponse response) {
         List<Form> forms = formService.getAllForms();
         ModelAndView modelAndView = new ModelAndView("mainPage");
         modelAndView.addObject("forms", forms);
@@ -46,6 +47,10 @@ public class FormController {
         if (redirectAttributes.getFlashAttributes().containsKey("message")) {
             modelAndView.addObject("message", redirectAttributes.getFlashAttributes().get("message"));
         }
+
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
 
         return modelAndView;
     }
