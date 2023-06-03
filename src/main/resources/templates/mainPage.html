@@ -17,11 +17,11 @@
                     <input type="hidden" name="yearOfBirth" th:value="${form.yearOfBirth}" />
                     <input type="hidden" name="gender" th:value="${form.gender}" />
                     <input type="hidden" name="occupation" th:value="${form.occupation}" />
-                    <button type="submit">Update</button>
+                    <button class="update-button" type="submit">Update</button>
                 </form>
                 <form class="inline" th:object="${form}" th:action="@{/form/delete}" th:method="post">
                     <input type="hidden" name="id" th:value="${form.id}" />
-                    <button type="submit">Delete</button>
+                    <button class="delete-button" type="submit">Delete</button>
                 </form>
                 <div class="inline">
                     <span th:text="${form.firstName}"></span>
