@@ -3,6 +3,7 @@ package com.app.formcatalog.service;
 import com.app.formcatalog.domain.Form;
 import com.app.formcatalog.repository.FormRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +20,13 @@ public class FormService {
     }
 
     public List<Form> getAllForms() {
-        return formRepository.findAll();
-    }
+        Sort.Order firstNameOrder = Sort.Order.asc("firstName");
+        Sort.Order lastNameOrder = Sort.Order.asc("lastName");
+        Sort.Order surnameOrder = Sort.Order.asc("surname");
 
-    public Form getFormById(String id) {
-        return formRepository.findById(id).orElse(null);
+        Sort sort = Sort.by(firstNameOrder, lastNameOrder, surnameOrder);
+
+        return formRepository.findAll(sort);
     }
 
     public Form createForm(Form form) {

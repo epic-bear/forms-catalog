@@ -17,7 +17,7 @@ body {
     align-items: center;
     margin-left: -600px;
     overflow: auto;
-    max-height: 100vh; /* Adjust the max height as needed */
+    max-height: 100vh;
     min-height: 100vh;
     min-width: 25vh;
     max-width: 25vh;
@@ -28,9 +28,12 @@ body {
     margin-right: 20px;
     width: 50%;
     align-self: flex-start;
+    max-height: 80vh;
+    max-width: 25vh;
 }
 
 .form-list {
+    display: inline;
     list-style-type: none;
     padding: 0;
 }
@@ -61,4 +64,26 @@ li {
 
 .create-button:hover {
     background-color: #45a049;
+}
+
+.inline {
+    display: inline-block;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
