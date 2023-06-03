@@ -2,16 +2,22 @@ package com.app.formcatalog.controller;
 
 import com.app.formcatalog.domain.Form;
 import com.app.formcatalog.service.FormService;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Valid;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/")
@@ -25,8 +31,9 @@ public class FormController {
     }
 
     @GetMapping("/form")
-    public String getFormPage(@ModelAttribute("form") Form form, Model model) {
+    public String getFormPage(@ModelAttribute("form") Form form, Model model, RedirectAttributes redirectAttributes) {
         model.addAttribute("form", form);
+        model.addAttribute("errorMessage", redirectAttributes.getFlashAttributes().get("errorMessage"));
         return "formPage";
     }
 
@@ -43,28 +50,18 @@ public class FormController {
         return modelAndView;
     }
 
-    @GetMapping("form/{id}")
-    public ResponseEntity<Form> getFormById(@PathVariable String id) {
-        Form form = formService.getFormById(id);
-        if (form != null) {
-            return new ResponseEntity<>(form, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
     @PostMapping("/form")
-    public String saveForm(@ModelAttribute("form") Form form, RedirectAttributes redirectAttributes) {
+    public String saveForm(@Valid @ModelAttribute("form") Form form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "formPage";
+        }
         if (form.getId() != null) {
-            // Form ID exists, perform update operation
             formService.updateForm(form);
             redirectAttributes.addFlashAttribute("message", "Form updated successfully!");
         } else {
-            // Form ID doesn't exist, perform create operation
             formService.createForm(form);
             redirectAttributes.addFlashAttribute("message", "Form created successfully!");
         }
-
         return "redirect:/";
     }
 
@@ -74,7 +71,7 @@ public class FormController {
         if (deleted) {
             redirectAttributes.addFlashAttribute("message", "Form deleted successfully!");
         } else {
-            redirectAttributes.addFlashAttribute("error", "Failed to delete the form.");
+            redirectAttributes.addFlashAttribute("message", "Failed to delete the form.");
         }
         return "redirect:/";
     }

@@ -6,28 +6,42 @@
 </head>
 <body>
 <h1>Form Page</h1>
-
-<form th:object="${form}" th:action="@{/form}" th:method="POST">
+<div th:if="${errorMessage}" class="error-message">
+    <span th:text="${errorMessage}"></span>
+</div>
+<form id="form" th:object="${form}" th:action="@{/form}" th:method="POST">
     <input type="hidden" th:if="${form != null && form.id != null}" th:field="*{id}" />
 
     <div>
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" name="firstName" th:value="${form != null ? form.firstName : null}" required/>
+        <div id="firstName-error" th:if="${#fields.hasErrors('firstName')}" class="error-message">
+            <span th:errors="*{firstName}"></span>
+        </div>
     </div>
 
     <div>
         <label for="lastName">Last Name:</label>
         <input type="text" id="lastName" name="lastName" th:value="${form != null ? form.lastName : null}" required/>
+        <div id="lastName-error" th:if="${#fields.hasErrors('lastName')}" class="error-message">
+            <span th:errors="*{lastName}"></span>
+        </div>
     </div>
 
     <div>
         <label for="surname">Surname:</label>
         <input type="text" id="surname" name="surname" th:value="${form != null ? form.surname : null}" required/>
+        <div id="surname-error" th:if="${#fields.hasErrors('surname')}" class="error-message">
+            <span th:errors="*{surname}"></span>
+        </div>
     </div>
 
     <div>
         <label for="yearOfBirth">Year of Birth:</label>
         <input type="number" id="yearOfBirth" name="yearOfBirth" th:value="${form != null ? form.yearOfBirth : null}" required/>
+        <div id="yearOfBirth-error" th:if="${#fields.hasErrors('yearOfBirth')}" class="error-message">
+            <span th:errors="*{yearOfBirth}"></span>
+        </div>
     </div>
 
     <div>
@@ -45,6 +59,9 @@
     <button type="submit">Submit</button>
 </form>
 
+<div id="errorContainer"></div>
+
+<script src="/javascript/formValidationScript.js"></script>
 <script th:inline="javascript">
     document.addEventListener("DOMContentLoaded", function() {
         let genders = /*[[${T(com.app.formcatalog.domain.Gender).values()}]]*/ [];

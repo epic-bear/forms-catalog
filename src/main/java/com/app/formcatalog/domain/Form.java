@@ -30,13 +30,13 @@ public class Form {
     @Size(max = 20, message = "Surname length should not exceed 20 characters")
     private String surname;
 
-    @NotBlank
     @Min(value = 1900, message = "Invalid year of birth")
     @Max(value = 2100, message = "Invalid year of birth")
     private int yearOfBirth;
 
-    @NotBlank
+    @NotNull
     private Gender gender;
+
     @NotBlank
     private String occupation;
 }
