@@ -4,33 +4,37 @@
     <link th:href="@{/css/main-page-style.css}" rel="stylesheet"/>
 </head>
 <body>
-<h1>Main Page</h1>
-<a th:href="@{/form}">Create New Form</a>
-<div th:if="${message}" class="result-message">
-    <span th:text="${message}"></span>
+<div class="container">
+    <div class="navbar">
+        <h2>Forms</h2>
+        <ul class="form-list">
+            <li th:each="form : ${forms}">
+                <span th:text="${form.firstName}"></span>
+                <span th:text="${form.lastName}"></span>
+                <span th:text="${form.surname}"></span>
+                <form th:object="${form}" th:action="@{/form}" method="get" style="display: inline;">
+                    <input type="hidden" name="id" th:value="${form.id}" />
+                    <input type="hidden" name="firstName" th:value="${form.firstName}" />
+                    <input type="hidden" name="lastName" th:value="${form.lastName}" />
+                    <input type="hidden" name="surname" th:value="${form.surname}" />
+                    <input type="hidden" name="yearOfBirth" th:value="${form.yearOfBirth}" />
+                    <input type="hidden" name="gender" th:value="${form.gender}" />
+                    <input type="hidden" name="occupation" th:value="${form.occupation}" />
+                    <button type="submit">Update</button>
+                </form>
+                <form th:object="${form}" th:action="@{/form/delete}" th:method="post" style="display: inline;">
+                    <input type="hidden" name="id" th:value="${form.id}" />
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        </ul>
+    </div>
 </div>
 
-<h2>Form List</h2>
-<ul>
-    <li th:each="form : ${forms}">
-        <span th:text="${form.firstName}"></span>
-        <span th:text="${form.lastName}"></span>
-        <span th:text="${form.surname}"></span>
-        <form th:object="${form}" th:action="@{/form}" method="get" style="display: inline;">
-            <input type="hidden" name="id" th:value="${form.id}" />
-            <input type="hidden" name="firstName" th:value="${form.firstName}" />
-            <input type="hidden" name="lastName" th:value="${form.lastName}" />
-            <input type="hidden" name="surname" th:value="${form.surname}" />
-            <input type="hidden" name="yearOfBirth" th:value="${form.yearOfBirth}" />
-            <input type="hidden" name="gender" th:value="${form.gender}" />
-            <input type="hidden" name="occupation" th:value="${form.occupation}" />
-            <button type="submit">Update</button>
-        </form>
-        <form th:object="${form}" th:action="@{/form/delete}" th:method="post" style="display: inline;">
-            <input type="hidden" name="id" th:value="${form.id}" />
-            <button type="submit">Delete</button>
-        </form>li>
-</ul>
+<div class="create-form-button">
+    <a class="create-button" th:href="@{/form}">Create Form</a>
+</div>
+
 <script th:inline="javascript">
     document.addEventListener("DOMContentLoaded", function() {
         let resultMessage = document.querySelector(".result-message");

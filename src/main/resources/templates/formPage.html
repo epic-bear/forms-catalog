@@ -2,10 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="application/json; charset=UTF-8"/>
-    <title>Form Page</title>
+    <link th:href="@{/css/form-page-style.css}" rel="stylesheet"/>
+    <title>Form</title>
 </head>
 <body>
-<h1>Form Page</h1>
+<h1>Form</h1>
 <div th:if="${errorMessage}" class="error-message">
     <span th:text="${errorMessage}"></span>
 </div>
@@ -15,33 +16,36 @@
     <div>
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" name="firstName" th:value="${form != null ? form.firstName : null}" required/>
-        <div id="firstName-error" th:if="${#fields.hasErrors('firstName')}" class="error-message">
+        <p id="firstName-error" th:if="${#fields.hasErrors('firstName')}" class="error-message">
             <span th:errors="*{firstName}"></span>
-        </div>
+        </p>
+        <p class="error-placeholder"></p>
     </div>
 
     <div>
         <label for="lastName">Last Name:</label>
         <input type="text" id="lastName" name="lastName" th:value="${form != null ? form.lastName : null}" required/>
-        <div id="lastName-error" th:if="${#fields.hasErrors('lastName')}" class="error-message">
+        <p id="lastName-error" th:if="${#fields.hasErrors('lastName')}" class="error-message">
             <span th:errors="*{lastName}"></span>
-        </div>
+        </p>
+        <p class="error-placeholder"></p>
     </div>
 
     <div>
         <label for="surname">Surname:</label>
         <input type="text" id="surname" name="surname" th:value="${form != null ? form.surname : null}" required/>
-        <div id="surname-error" th:if="${#fields.hasErrors('surname')}" class="error-message">
+        <p id="surname-error" th:if="${#fields.hasErrors('surname')}" class="error-message">
             <span th:errors="*{surname}"></span>
-        </div>
+        </p>
+        <p class="error-placeholder"></p>
     </div>
 
     <div>
         <label for="yearOfBirth">Year of Birth:</label>
         <input type="number" id="yearOfBirth" name="yearOfBirth" th:value="${form != null ? form.yearOfBirth : null}" required/>
-        <div id="yearOfBirth-error" th:if="${#fields.hasErrors('yearOfBirth')}" class="error-message">
+        <p id="yearOfBirth-error" th:if="${#fields.hasErrors('yearOfBirth')}" class="error-message">
             <span th:errors="*{yearOfBirth}"></span>
-        </div>
+        </p>
     </div>
 
     <div>
@@ -56,7 +60,9 @@
         </select>
     </div>
 
-    <button type="submit">Submit</button>
+    <div class="submit-wrapper">
+        <button type="submit">Submit</button>
+    </div>
 </form>
 
 <div id="errorContainer"></div>

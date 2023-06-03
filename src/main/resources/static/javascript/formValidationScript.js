@@ -6,5 +6,5 @@ function hideErrorMessages() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    setTimeout(hideErrorMessages, 3000);
+    setTimeout(hideErrorMessages, 5000);
 });
