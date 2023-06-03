@@ -19,12 +19,14 @@ body {
     max-height: 100vh; /* Adjust the max height as needed */
     min-height: 100vh;
     min-width: 25vh;
+    max-width: 25vh;
 }
 
 .navbar {
-    margin-bottom: 500px;
+    margin-bottom: 20px;
     margin-right: 20px;
-    width: 50%; /* Adjust the width as needed */
+    width: 50%;
+    align-self: flex-start;
 }
 
 .form-list {
