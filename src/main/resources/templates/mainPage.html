@@ -40,5 +40,18 @@
             <button type="submit">Delete</button>
         </form>li>
 </ul>
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        let resultMessage = document.querySelector(".result-message");
+
+        if (resultMessage) {
+            resultMessage.style.display = "block";
+
+            setTimeout(function() {
+                resultMessage.style.display = "none";
+            }, 3000);
+        }
+    });
+</script>
 </body>
 </html>
