@@ -4,6 +4,9 @@
     <link th:href="@{/css/main-page-style.css}" rel="stylesheet"/>
 </head>
 <body>
+<div th:if="${message}" class="result-message">
+    <span th:text="${message}"></span>
+</div>
 <div class="container">
     <div class="navbar">
         <h2>Forms</h2>
