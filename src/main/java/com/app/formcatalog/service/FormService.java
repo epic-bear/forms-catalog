@@ -29,11 +29,11 @@ public class FormService {
         return formRepository.findAll(sort);
     }
 
-    public Form createForm(Form form) {
-        return formRepository.save(form);
+    public void createForm(Form form) {
+        formRepository.save(form);
     }
 
-    public Form updateForm(Form form) {
+    public boolean updateForm(Form form) {
         Optional<Form> optionalForm = formRepository.findById(form.getId());
         if (optionalForm.isPresent()) {
             Form existingForm = optionalForm.get();
@@ -43,10 +43,10 @@ public class FormService {
             existingForm.setYearOfBirth(form.getYearOfBirth());
             existingForm.setOccupation(form.getOccupation());
             existingForm.setGender(form.getGender());
-
-            return formRepository.save(existingForm);
+            formRepository.save(existingForm);
+            return true;
         } else {
-            return null;
+            return false;
         }
     }
 

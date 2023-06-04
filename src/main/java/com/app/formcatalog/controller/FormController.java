@@ -54,8 +54,14 @@ public class FormController {
             return "formPage";
         }
         if (form.getId() != null) {
-            formService.updateForm(form);
-            redirectAttributes.addFlashAttribute("message", "Form updated successfully!");
+            boolean updated = formService.updateForm(form);
+            if(updated){
+                redirectAttributes.addFlashAttribute("message", "Form updated successfully!");
+            }
+            else {
+                redirectAttributes.addFlashAttribute("message", "Failed to update the form.");
+            }
+
         } else {
             formService.createForm(form);
             redirectAttributes.addFlashAttribute("message", "Form created successfully!");
