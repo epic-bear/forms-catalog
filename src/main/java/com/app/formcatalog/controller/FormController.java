@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;;
 
 @Controller
-@RequestMapping("/")
 public class FormController {
 
     private final FormService formService;
@@ -33,7 +32,7 @@ public class FormController {
     }
 
     @GetMapping("/")
-    public ModelAndView getAllForms(RedirectAttributes redirectAttributes, HttpServletResponse response) {
+    public ModelAndView getMainPage(RedirectAttributes redirectAttributes, HttpServletResponse response) {
         List<Form> forms = formService.getAllForms();
         ModelAndView modelAndView = new ModelAndView("mainPage");
         modelAndView.addObject("forms", forms);
