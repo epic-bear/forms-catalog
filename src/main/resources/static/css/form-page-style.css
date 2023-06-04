@@ -80,7 +80,6 @@ input[type="number"] {
 
 label {
     margin-top: 20px;
-    margin-bottom: 20px;
 }
 
 .error-placeholder {
@@ -91,4 +90,31 @@ label {
 input, select {
     padding: 8px;
     margin-bottom: 10px;
+}
+
+.firstName {
+    margin-right: 40px;
+}
+
+.lastName {
+    margin-right: 40px;
+}
+
+.surname {
+    margin-right: 53px;
+}
+
+.yearOfBirth {
+    margin-right: 30px;
+    margin-bottom: 35px;
+}
+
+.gender {
+    margin-right: 160px;
+    margin-bottom: 35px;
+}
+
+.occupation {
+    min-width: 230px;
+    margin-left: -80px;
 }
