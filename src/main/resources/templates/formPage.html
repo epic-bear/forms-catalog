@@ -73,10 +73,24 @@
         let genders = /*[[${T(com.app.formcatalog.domain.Gender).values()}]]*/ [];
         let genderSelect = document.getElementById("gender");
         let occupationSelect = document.getElementById("occupation");
+        let maleOccupationsFile = /*[[@{/maleOccupations.txt}]]*/ '';
+        let femaleOccupationsFile = /*[[@{/femaleOccupations.txt}]]*/ '';
         let occupationsByGender = {
-            Male: ["Mechanic", "Electrician", "Plumber", "Glazier", "Taxi driver"],
-            Female: ["Nurse", "Choreographer", "Receptionist", "Travel agent", "Social worker"]
+            Male: [],
+            Female: []
         };
+
+        function loadData(url) {
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', url, false);  // Set the third parameter to false to make a synchronous request
+            xhr.send();
+
+            return xhr.status === 200 ? xhr.responseText : null;
+        }
+
+        occupationsByGender.Male = loadData(maleOccupationsFile)?.split('\n').filter(Boolean) || [];
+        occupationsByGender.Female = loadData(femaleOccupationsFile)?.split('\n').filter(Boolean) || [];
+
 
         // Generate options for the gender select element
         for (let i = 0; i < genders.length; i++) {
